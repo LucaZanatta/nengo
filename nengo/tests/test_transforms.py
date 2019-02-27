@@ -83,3 +83,14 @@ def test_convolution(
         truth = np.moveaxis(truth, -1, 0)
 
     assert np.allclose(sim.data[p][0], np.ravel(truth))
+
+
+def test_argreprs():
+    """Test repr() for each transform type."""
+    assert repr(nengo.Dense((1, 2), init=[[1, 1]])) == "Dense(shape=(1, 2))"
+
+    assert (repr(nengo.Convolution(3, (1, 2, 1)))
+            == "Convolution(n_filters=3, input_shape=(1, 2, 1))")
+    assert (repr(nengo.Convolution(3, (1, 2, 1), kernel_size=(3, 2)))
+            == "Convolution(n_filters=3, input_shape=(1, 2, 1), "
+               "kernel_size=(3, 2))")
